@@ -1,13 +1,10 @@
 import telebot
 
-bot = telebot.TeleBot("5541484671:AAFfAZh7OrrPuDmEKfTm1ACxaGO1e3KT0AA")
+bot = telebot.TeleBot('5628198910:AAHxjGDeDpyrZ9TJbcwpkM7Xz3x-8BSfJJs')
 
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
+@bot.message_handler(content_types=["text"])
+def repeat_all_messages(message):
+    bot.send_message(message.chat.id, message.text)
 
-@bot.message_handler(func=lambda message: True)
-def echo_all(message):
-	bot.reply_to(message, message.text)
-
-bot.infinity_polling()
+if __name__ == '__main__':
+    bot.infinity_polling(timeout=1000)
